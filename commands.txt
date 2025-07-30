@@ -1,0 +1,2 @@
+For Tailwind css animations --> npm install -D tw-animate-css
+npm install clsx tailwind-merge pdfjs-dist zustand
