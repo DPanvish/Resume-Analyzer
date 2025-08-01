@@ -1,3 +1,5 @@
+// This file contains the declaration of types related to index.ts file
+
 interface Job {
     title: string;
     description: string;
