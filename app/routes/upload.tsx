@@ -10,6 +10,14 @@ const Upload = () => {
     // This to display the processing status text
     const [statusText, setStatusText] = useState('');
 
+    // This is to store the uploaded file
+    const [file, setFile] = useState<File | null>(null);
+
+    // This will handle the uploaded file and set its state
+    const handleFileSelect = (file: File | null) => {
+        setFile(file);
+    }
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 
     }
@@ -49,7 +57,7 @@ const Upload = () => {
 
                             <div className="form-div">
                                 <label htmlFor="uploader">Upload Resume</label>
-                                <FileUploader />
+                                <FileUploader onFileSelect={handleFileSelect} />
                             </div>
 
                             <button type="submit" className="primary-button">Analyze Resume</button>
