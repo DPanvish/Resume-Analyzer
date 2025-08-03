@@ -19,7 +19,23 @@ const Upload = () => {
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
+        // Store the form elements
+        const form = e.currentTarget.closest('form');
+
+        // if form is empty then return
+        if(!form){
+            return;
+        }
+
+        // Store the form data => companyName, jobTitle, jobDescription
+        const formData = new FormData(form);
+        const companyName = formData.get('company-name')
+        const jobTitle = formData.get('job-title');
+        const jobDescription = formData.get('job-description');
+
+        console.log({companyName, jobTitle, jobDescription});
     }
 
     return (
