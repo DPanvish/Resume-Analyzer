@@ -80,28 +80,38 @@ const Upload = () => {
         }
 
 
-
+        // add the uuid and data object (converted to JSON) to the key value storage
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
         setStatusText('Analyzing...');
 
         // We are generate feedback by ai
-        // prepareInstructions funtion is in index.ts
+        // prepareInstructions funtion is in index.ts (Only instructions and AIresponse is stored in it)
         const feedback = await ai.feedback(
             uploadedFile.path,
             prepareInstructions({ jobTitle, jobDescription })
         )
+
+        // if we don't get any feedback
         if (!feedback) return setStatusText('Error: Failed to analyze resume');
 
+        // extract the feedback
+        // if feedback is string ->  feedback.message.content
+        // if feedback is array -> feedback.message.content[0].text
         const feedbackText = typeof feedback.message.content === 'string'
             ? feedback.message.content
             : feedback.message.content[0].text;
 
+        // add feedback to the data object
         data.feedback = JSON.parse(feedbackText);
+
+        // update the data object as we added feedback
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
+
         setStatusText('Analysis complete, redirecting...');
+
         console.log(data);
-        navigate(`/resume/${uuid}`);
+        // navigate(`/resume/${uuid}`);
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -175,3 +185,5 @@ const Upload = () => {
     )
 }
 export default Upload
+
+

@@ -33,7 +33,7 @@ const FileUploader = ({onFileSelect}: FileUploaderProps) => {
         onDrop,
         multiple: false,
         accept: {'application/pdf': ['.pdf']},
-        maxSize: 20 * 1014 * 1024,
+        maxSize: 20 * 1024 * 1024,
     });
 
     const file = acceptedFiles[0] || null;
@@ -56,8 +56,6 @@ const FileUploader = ({onFileSelect}: FileUploaderProps) => {
                 <input {...getInputProps()} />
 
                 <div className="space-y-4 cursor-pointer">
-
-
 
                     {file ? (
                         // If a file is uploaded
