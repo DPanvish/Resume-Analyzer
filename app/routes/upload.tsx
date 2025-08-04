@@ -1,8 +1,18 @@
 import  {type FormEvent, useState} from 'react'
 import Navbar from "~/components/Navbar";
 import FileUploader from "~/components/FileUploader";
+import {usePuterStore} from "~/lib/puter";
+import {useNavigate} from "react-router";
+import {convertPdfToImage} from "~/lib/pdf2img";
+import {generateUUID} from "~/lib/utils";
+import {prepareInstructions} from "../../constants";
 
 const Upload = () => {
+
+    // Destructuring the puterstore (fs -> file storage, ai -> artificial intelligence, kv -> key value)
+    const {auth, isLoading, fs, ai, kv} = usePuterStore();
+
+    const navigate = useNavigate();
 
     // To check whether the upload is processing or not
     const [isProcessing, setIsProcessing] = useState(false);
@@ -18,6 +28,82 @@ const Upload = () => {
         setFile(file);
     }
 
+    const handleAnalyze = async ({ companyName, jobTitle, jobDescription, file }: { companyName: string, jobTitle: string, jobDescription: string, file: File  }) => {
+        setIsProcessing(true);
+
+        setStatusText('Uploading the file...');
+
+        // Uploading the file to the puter file storage
+        const uploadedFile = await fs.upload([file]);
+
+        // Checking whether uploaded file exists or not
+        if(!uploadedFile){
+            return setStatusText('Error: Failed to upload file');
+        }
+
+        // Converting the pdf to image
+
+        setStatusText('Converting to image...');
+
+        // convertPdfToImage login is implemented in pdf2img.ts file
+        const imageFile = await convertPdfToImage(file);
+
+        // checking whether image exists or not
+        if(!imageFile.file){
+            return setStatusText('Error: Failed to convert PDF to image');
+        }
+
+        setStatusText('Uploading the image...');
+
+        // Uploading the image to the puter file storage
+        const uploadedImage = await fs.upload([imageFile.file]);
+
+        // checking whether uploadingImage exists or not
+        if(!uploadedImage){
+            return setStatusText('Error: Failed to upload image');
+        }
+
+        setStatusText('Preparing data...');
+
+        // generate unique id, the generateUUID function is in utils.tsx
+        const uuid = generateUUID();
+
+        // Stores the data of the file
+        const data = {
+            id: uuid,
+            resumePath: uploadedFile.path,
+            imagePath: uploadedImage.path,
+            companyName,
+            jobTitle,
+            jobDescription,
+            feedback: '',
+        }
+
+
+
+        await kv.set(`resume:${uuid}`, JSON.stringify(data));
+
+        setStatusText('Analyzing...');
+
+        // We are generate feedback by ai
+        // prepareInstructions funtion is in index.ts
+        const feedback = await ai.feedback(
+            uploadedFile.path,
+            prepareInstructions({ jobTitle, jobDescription })
+        )
+        if (!feedback) return setStatusText('Error: Failed to analyze resume');
+
+        const feedbackText = typeof feedback.message.content === 'string'
+            ? feedback.message.content
+            : feedback.message.content[0].text;
+
+        data.feedback = JSON.parse(feedbackText);
+        await kv.set(`resume:${uuid}`, JSON.stringify(data));
+        setStatusText('Analysis complete, redirecting...');
+        console.log(data);
+        navigate(`/resume/${uuid}`);
+    }
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -31,11 +117,15 @@ const Upload = () => {
 
         // Store the form data => companyName, jobTitle, jobDescription
         const formData = new FormData(form);
-        const companyName = formData.get('company-name')
-        const jobTitle = formData.get('job-title');
-        const jobDescription = formData.get('job-description');
+        const companyName = formData.get('company-name') as string;
+        const jobTitle = formData.get('job-title') as string;
+        const jobDescription = formData.get('job-description') as string;
 
-        console.log({companyName, jobTitle, jobDescription});
+        if(!file){
+            return;
+        }
+
+        handleAnalyze({companyName, jobTitle, jobDescription, file});
     }
 
     return (

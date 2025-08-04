@@ -32,6 +32,7 @@ export default function Home() {
         <h2>Review your submissions and check AI-powered feedback.</h2>
       </div>
 
+      {/*resumes is coming from index.ts*/}
       {resumes.length > 0 && (
           <div className="resumes-section">
             {resumes.map((resume) => (
