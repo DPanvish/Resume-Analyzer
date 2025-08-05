@@ -7,6 +7,11 @@ import {convertPdfToImage} from "~/lib/pdf2img";
 import {generateUUID} from "~/lib/utils";
 import {prepareInstructions} from "../../constants";
 
+export const meta = () => ([
+    {title: 'Resumind | Upload'},
+    {name: 'decription', content: 'Upload the resume'},
+])
+
 const Upload = () => {
 
     // Destructuring the puterstore (fs -> file storage, ai -> artificial intelligence, kv -> key value)
@@ -111,7 +116,10 @@ const Upload = () => {
         setStatusText('Analysis complete, redirecting...');
 
         console.log(data);
-        // navigate(`/resume/${uuid}`);
+
+        // After resume is successfully uploaded then we will navigate to resume page
+        // with the unique id of the resume
+        navigate(`/resume/${uuid}`);
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
