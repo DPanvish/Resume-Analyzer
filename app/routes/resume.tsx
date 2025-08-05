@@ -23,6 +23,13 @@ const Resume = () => {
 
     const navigate = useNavigate();
 
+    // checking the authentication
+    useEffect(() => {
+        if(!isLoading && !auth.isAuthenticated){
+            navigate(`/auth?next=/resume/${id}`);
+        }
+    }, [isLoading]);
+
     useEffect(() => {
         const loadResume = async() =>{
 
@@ -48,7 +55,7 @@ const Resume = () => {
             }
 
             // creating pdfBlob from the resumeBlob of type pdf
-            const pdfBlob = new Blob([resumeBlob], {type: '/application/pdf'});
+            const pdfBlob = new Blob([resumeBlob], {type: 'application/pdf'});
 
             // extracting resumeUrl from the pdfBlob
             const resumeUrl = URL.createObjectURL(pdfBlob);
@@ -87,13 +94,15 @@ const Resume = () => {
                 </Link>
             </nav>
 
+            {/*flex-direction is set to column reverse as while collapsing to small devices the right side
+            resume review section should move to top*/}
             <div className="flex flex-row w-full max-lg:flex-col-reverse">
                 <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover h-[100vh] sticky top-0 items-center justify-center">
 
                     {/*if imageUrl and resumeUrl exist then we display the components*/}
                     {imageUrl && resumeUrl && (
                         <div className="animate-in fade-in duration-1000 gradient-border max-sm:m-0 h-[90%] max-wxl:h-fit w-fit">
-                            <a>
+                            <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
                                 <img
                                     src={imageUrl}
                                     className="w-full h-full object-contain rounded-2xl"
@@ -101,6 +110,22 @@ const Resume = () => {
                                 />
                             </a>
                         </div>
+                    )}
+                </section>
+
+                <section className="feedback-section">
+                    <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
+
+                    {feedback ? (
+
+                        // If feedback exist the this block will be displayed
+                        <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
+                            Summary ATS Details
+                        </div>
+                    ) : (
+
+                        // If feedback does not exist then this block is displayed
+                        <img src="/images/resume-scan-2.gif" className="w-full"/>
                     )}
                 </section>
             </div>
