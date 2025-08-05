@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {Link, useNavigate, useParams} from "react-router";
 import {usePuterStore} from "~/lib/puter";
+import Summary from "~/components/Summary";
+import ATS from "~/components/ATS";
+import Details from "~/components/Details";
 
 
 export const meta = () => ([
@@ -19,7 +22,9 @@ const Resume = () => {
     // These are the states for the data, urls
     const [imageUrl, setImageUrl] = useState("");
     const [resumeUrl, setResumeUrl] = useState("");
-    const [feedback, setFeedback] = useState("");
+
+    // Defined type Feedback in index.ts
+    const [feedback, setFeedback] = useState<Feedback | null>(null);
 
     const navigate = useNavigate();
 
@@ -120,7 +125,14 @@ const Resume = () => {
 
                         // If feedback exist the this block will be displayed
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
-                            Summary ATS Details
+                            {/* Passing feedback as props*/}
+                            <Summary feedback={feedback}/>
+
+                            {/* Passing ATS score and suggestions as props*/}
+                            <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []}/>
+
+                            {/* Passing feedback as props*/}
+                            <Details feedback={feedback}/>
                         </div>
                     ) : (
 
