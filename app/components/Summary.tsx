@@ -1,5 +1,6 @@
 import React from 'react'
 import ScoreGuage from "~/components/ScoreGuage";
+import ScoreBadge from "~/components/ScoreBadge";
 
 // Component for different categories
 const Category = ({title, score} : {title: string, score: number}) =>{
@@ -14,6 +15,9 @@ const Category = ({title, score} : {title: string, score: number}) =>{
             <div className="category">
                 <div className="flex flex-row items-center justify-center">
                     <p className="text-2xl">{title}</p>
+
+                    {/*Badge based on the score*/}
+                    <ScoreBadge score={score} />
                 </div>
 
                 <p className="text-2xl">
