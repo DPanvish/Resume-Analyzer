@@ -57,10 +57,10 @@ form {
     @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200 p-4 rounded-2xl;
   }
   .primary-button {
-    @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+    @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full transition-all duration-300 ease-in-out hover:scale-105;
   }
   .resume-nav {
-    @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
+    @apply flex flex-row justify-between items-center p-4 border-b border-gray-200 bg-gradient-dark;
   }
   .resume-summary {
     @apply flex flex-row items-center justify-center p-4 gap-4;
@@ -69,7 +69,7 @@ form {
     }
   }
   .back-button {
-    @apply flex flex-row items-center gap-2 border border-gray-200 rounded-lg p-2 shadow-sm;
+    @apply flex flex-row items-center gap-2 border border-gray-200 rounded-lg p-2 shadow-sm bg-gradient-btn;
   }
   .auth-button {
     @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-[600px] max-md:w-full text-3xl font-semibold text-white;
@@ -128,8 +128,16 @@ form {
   @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200;
 }
 
+@utility bg-gradient-btn{
+  background: linear-gradient(to bottom, #717dff, #4957eb);
+}
+
+@utility bg-gradient-dark{
+  background: linear-gradient(131deg,rgba(0, 0, 0, 1) 0%, rgba(145, 0, 242, 1) 100%);
+}
+
 @utility primary-gradient {
-  background: linear-gradient(180deg,rgba(69, 205, 230, 1) 0%, rgba(13, 112, 111, 1) 100%);
+  background: linear-gradient(135deg, #8A2BE2, #00D1FF);
   box-shadow: 0px 74px 21px 0px #6678ef00;
 }
 
