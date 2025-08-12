@@ -147,7 +147,7 @@ const Upload = () => {
     }
 
     return (
-        <main className="bg-[url('/images/bg-custom.jpg')] bg-cover">
+        <main className="bg-[url('/images/bg-custom.jpg')] bg-cover bg-fixed">
             <Navbar />
             <section className="main-section">
                 <div className="page-heading py-16">
