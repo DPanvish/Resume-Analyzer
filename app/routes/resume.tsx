@@ -92,54 +92,57 @@ const Resume = () => {
 
     return (
         <main className="!pt-0">
-            <nav className="resume-nav">
-                <Link to="/" className="back-button">
-                    <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5"/>
-                    <span className="text-gray-800 text-sm font-semibold">Back to Homepage</span>
-                </Link>
-            </nav>
 
             {/*flex-direction is set to column reverse as while collapsing to small devices the right side
             resume review section should move to top*/}
-            <div className="resume-container">
-                <section className="feedback-section h-[100vh] sticky top-0 items-center justify-center">
+            <div className="resume-bg">
+                <nav className="resume-nav">
+                    <Link to="/" className="back-button">
+                        <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5"/>
+                        <span className="text-gray-800 text-sm font-semibold">Back to Homepage</span>
+                    </Link>
+                </nav>
 
-                    {/*if imageUrl and resumeUrl exist then we display the components*/}
-                    {imageUrl && resumeUrl && (
-                        <div className="animate-in fade-in duration-1000 gradient-border max-sm:m-0 h-[90%] max-wxl:h-fit w-fit">
-                            <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
-                                <img
-                                    src={imageUrl}
-                                    className="w-full h-full object-contain rounded-2xl"
-                                    title="resume"
-                                />
-                            </a>
-                        </div>
-                    )}
-                </section>
+                <div className="resume-container">
+                    <section className="feedback-section h-[100vh] sticky top-0 items-center justify-center">
 
-                <section className="feedback-section">
-                    <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
+                        {/*if imageUrl and resumeUrl exist then we display the components*/}
+                        {imageUrl && resumeUrl && (
+                            <div className="animate-in fade-in duration-1000 gradient-border max-sm:m-0 h-[90%] max-wxl:h-fit w-fit">
+                                <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
+                                    <img
+                                        src={imageUrl}
+                                        className="w-full h-full object-contain rounded-2xl"
+                                        title="resume"
+                                    />
+                                </a>
+                            </div>
+                        )}
+                    </section>
 
-                    {feedback ? (
+                    <section className="feedback-section">
+                        <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
 
-                        // If feedback exist the this block will be displayed
-                        <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
-                            {/* Passing feedback as props*/}
-                            <Summary feedback={feedback}/>
+                        {feedback ? (
 
-                            {/* Passing ATS score and suggestions as props*/}
-                            <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []}/>
+                            // If feedback exist the this block will be displayed
+                            <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
+                                {/* Passing feedback as props*/}
+                                <Summary feedback={feedback}/>
 
-                            {/* Passing feedback as props*/}
-                            <Details feedback={feedback}/>
-                        </div>
-                    ) : (
+                                {/* Passing ATS score and suggestions as props*/}
+                                <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []}/>
 
-                        // If feedback does not exist then this block is displayed
-                        <img src="/images/resume-scan-2.gif" className="w-full"/>
-                    )}
-                </section>
+                                {/* Passing feedback as props*/}
+                                <Details feedback={feedback}/>
+                            </div>
+                        ) : (
+
+                            // If feedback does not exist then this block is displayed
+                            <img src="/images/resume-scan-2.gif" className="w-full"/>
+                        )}
+                    </section>
+                </div>
             </div>
         </main>
     )
