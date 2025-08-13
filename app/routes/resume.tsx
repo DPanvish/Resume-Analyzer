@@ -101,7 +101,7 @@ const Resume = () => {
 
             {/*flex-direction is set to column reverse as while collapsing to small devices the right side
             resume review section should move to top*/}
-            <div className="flex flex-row w-full max-lg:flex-col-reverse">
+            <div className="resume-container">
                 <section className="feedback-section h-[100vh] sticky top-0 items-center justify-center">
 
                     {/*if imageUrl and resumeUrl exist then we display the components*/}

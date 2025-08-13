@@ -60,7 +60,7 @@ form {
     @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full transition-all duration-300 ease-in-out hover:scale-105;
   }
   .resume-nav {
-    @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
+    @apply flex flex-row justify-between items-center p-4 border-b;
   }
   .resume-summary {
     @apply flex flex-row items-center justify-center p-4 gap-4;
@@ -90,6 +90,10 @@ form {
 
   .resume-card-header {
     @apply flex flex-row gap-2 justify-between min-h-[110px] max-sm:flex-col items-center max-md:justify-center max-md:items-center;
+  }
+
+  .resume-container{
+    @apply flex flex-row w-full max-lg:flex-col-reverse bg-gradient-to-tr from-slate-950 via-purple-900 to-purple-700;
   }
 
   .feedback-section {
