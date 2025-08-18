@@ -121,7 +121,7 @@ const Resume = () => {
                     </section>
 
                     <section className="feedback-section">
-                        <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
+                        <h2 className="text-4xl !text-white font-bold">Resume Review</h2>
 
                         {feedback ? (
 

@@ -30,7 +30,7 @@ const Category = ({title, score} : {title: string, score: number}) =>{
 
 const Summary = ({feedback} : {feedback: Feedback}) => {
     return (
-        <div className="bg-white rounded-2xl shadow-md w-full">
+        <div className="bg-white rounded-2xl shadow-2xl w-full ">
             <div className="flex flex-row items-center p-4 gap-8">
 
                 {/*We will pass the overall ATS score to the ScoreGuage as props*/}
