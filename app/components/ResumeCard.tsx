@@ -28,7 +28,7 @@ const ResumeCard = ({resume :{id, companyName, jobTitle, feedback, imagePath}} :
             <div className="resume-card-header">
                 <div className="flex flex-col gap-2">
                     {/*If company name exists*/}
-                    {companyName && <h2 className="!text-black font-bold break-words">
+                    {companyName && <h2 className="!text-white font-bold break-words">
                         {companyName}
                     </h2>}
 
