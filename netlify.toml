@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "build/client"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback so client-side routes work on refresh and deep links
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
