@@ -42,7 +42,8 @@ export default function Home() {
     loadResumes();
   }, []);
 
-  return <main className="bg-[url('/images/bg-custom.jpg')] bg-cover bg-fixed">
+  return (
+    <main>
     <Navbar/>
     <section className="main-section">
       <div className="page-heading py-16">
@@ -78,4 +79,5 @@ export default function Home() {
       )}
     </section>
   </main>
+  );
 }
