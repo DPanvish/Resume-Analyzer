@@ -9,7 +9,7 @@ const AnimatedBackground = () => {
 
             <div
                 className="absolute inset-0 opacity-[0.04] mix-blend-soft-light"
-                style{{
+                style={{
                 backgroundImage: "url('data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><filter id=\\'n\\'><feTurbulence type=\\'fractalNoise\\' baseFrequency=\\'0.8\\' numOctaves=\\'4\\' stitchTiles=\\'stitch\\'/></filter><rect width=\\'100%\\' height=\\'100%\\' filter=\\'url(%23n)\\' opacity=\\'0.6\\'/></svg>')"
                 }}
             />
@@ -22,7 +22,7 @@ export default AnimatedBackground
 */
 
 
-/* GSAP driven animated background */
+/* GSAP driven animated background*/
 
 const AnimatedBackground = () => {
     const scope = useRef<HTMLDivElement>(null)
@@ -43,7 +43,7 @@ const AnimatedBackground = () => {
                 scale: 1.1
             });
 
-            gsap.to("blob2", {
+            gsap.to("#blob2", {
                 duration: 22,
                 repeat: -1,
                 yoyo: true,
@@ -53,10 +53,14 @@ const AnimatedBackground = () => {
                 scale: 0.95
             })
         })
+
+        return () => {
+            ctx.revert();
+        }
     }, []);
 
     return (
-        <div ref={scope} aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
+        <div ref={scope} aria-hidden className="fixed inset-0 z-0 overflow-hidden">
             <svg className="absolute w-[120vmax] h-[120vmax] -left-[10vmax] -top-[20vmax] opacity-30 blur-3xl" viewBox="0 0 200 200">
                 <defs>
                     <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">

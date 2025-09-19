@@ -147,7 +147,7 @@ const Upload = () => {
     }
 
     return (
-        <main className="bg-[url('/images/bg-custom.jpg')] bg-cover bg-fixed">
+        <main>
             <Navbar />
             <section className="main-section">
                 <div className="page-heading py-16">
@@ -179,12 +179,12 @@ const Upload = () => {
                             </div>
 
 
-                            <div className="form-div">
+                            <div className="form-div z-10">
                                 <label htmlFor="uploader">Upload Resume</label>
                                 <FileUploader onFileSelect={handleFileSelect} />
                             </div>
 
-                            <button type="submit" className="primary-button">Analyze Resume</button>
+                            <button type="submit" className="primary-button z-10">Analyze Resume</button>
                         </form>
                     )}
                 </div>
