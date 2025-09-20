@@ -31,7 +31,6 @@ export default function Home() {
 		const ctx = gsap.context(() => {
 			gsap.to("[data-hero]", {
 				y: 16,
-				autoAlpha: 0,
 				duration: 0.6,
 				ease: "power2.inOut",
 			});
