@@ -3,7 +3,9 @@ import Navbar from "~/components/Navbar";
 import ResumeCard from "~/components/ResumeCard";
 import {usePuterStore} from "~/lib/puter";
 import {Link, useNavigate} from "react-router";
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {gsap} from "gsap";
+import resume from "~/routes/resume";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -18,6 +20,25 @@ export default function Home() {
   const navigate = useNavigate();
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
+
+  const scope = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        if(!scope.current){
+            return;
+        }
+
+        const ctx = gsap.context(() => {
+            gsap.to("[data-hero]", {
+                y: 16,
+                autoAlpha: 0,
+                duration: 0.6,
+                ease: "power2.inOut",
+            });
+        }, scope);
+
+        return () => ctx.revert();
+    }, [resume.length]);
 
   useEffect(() => {
     if(!auth.isAuthenticated){
