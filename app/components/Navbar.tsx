@@ -1,9 +1,28 @@
-import React from 'react'
+import React, {useLayoutEffect, useRef} from 'react'
 import {Link} from 'react-router'
+import {gsap} from "gsap";
 
 const Navbar = () => {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        if(!ref.current){
+            return;
+        }
+
+        const ctx = gsap.context(() => {
+            gsap.from(ref.current, {
+                y: -12,
+                autoAlpha: 0,
+                duration: 0.5,
+                ease: "power2.inOut",
+            })
+        }, ref);
+
+        return () => ctx.revert();
+    }, []);
     return (
-        <nav className="navbar shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
+        <nav ref={ref} className="navbar shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
             <Link to="/">
                 <p className="text-2xl font-bold text-gradient">RESUMLYZER</p>
             </Link>
