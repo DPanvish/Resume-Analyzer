@@ -95,9 +95,9 @@ const Resume = () => {
 
             {/*flex-direction is set to column reverse as while collapsing to small devices the right side
             resume review section should move to top*/}
-            <div className="resume-bg">
+            <div>
                 <nav className="resume-nav">
-                    <Link to="/" className="back-button">
+                    <Link to="/" className="back-button z-10">
                         <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5"/>
                         <span className="text-gray-800 text-sm font-semibold">Back to Homepage</span>
                     </Link>
@@ -126,7 +126,7 @@ const Resume = () => {
                         {feedback ? (
 
                             // If feedback exist the this block will be displayed
-                            <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
+                            <div className="flex flex-col gap-8 animate-in fade-in duration-1000 z-10">
                                 {/* Passing feedback as props*/}
                                 <Summary feedback={feedback}/>
 

@@ -113,9 +113,9 @@ form {
     @apply flex flex-row gap-2 justify-between min-h-[110px] max-sm:flex-col items-center max-md:justify-center max-md:items-center backdrop-blur-sm;
   }
 
-  .resume-bg{
-    @apply bg-gradient-to-tr from-slate-950 via-purple-900 to-purple-700
-  }
+  /*.resume-bg{*/
+  /*  @apply bg-gradient-to-tr from-slate-950 via-purple-900 to-purple-700*/
+  /*}*/
 
   .resume-container{
     @apply flex flex-row w-full max-lg:flex-col-reverse;
