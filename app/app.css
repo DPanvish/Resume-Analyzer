@@ -107,8 +107,14 @@ form {
   }
 
   .resume-card {
-    @apply rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] p-4 flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] backdrop-grayscale-75;
+    @apply rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] p-4 flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] transition-all duration-100 ease-in-out backdrop-grayscale-75;
     box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1), 10px 10px 30px 4px rgba(45, 78, 255, 0.15);
+  }
+
+  .resume-card:hover,
+  .resume-card:focus-within {
+    @apply -translate-y-2 border-[var(--color-accent-4)];
+    box-shadow: -10px -10px 40px 6px rgba(0, 0, 0, 0.15), 10px 10px 40px 6px rgba(45, 78, 255, 0.25);
   }
 
   .resume-card-header {
