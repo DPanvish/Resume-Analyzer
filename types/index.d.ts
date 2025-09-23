@@ -58,3 +58,10 @@ interface Feedback {
         }[];
     };
 }
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    className?: string;
+    variant?: "primary" | "secondary" | "ghost" | "outline" | "link" | "destructive";
+    size?: "default" | "sm" | "lg" | "icon";
+    asChild?: boolean;
+}
