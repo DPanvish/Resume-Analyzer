@@ -107,7 +107,8 @@ form {
   }
 
   .resume-card {
-    @apply flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] backdrop-grayscale-75 rounded-2xl p-4 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)];
+    @apply rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] p-4 flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] backdrop-grayscale-75;
+    box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1), 10px 10px 30px 4px rgba(45, 78, 255, 0.15);
   }
 
   .resume-card-header {
@@ -145,9 +146,6 @@ form {
     @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
   }
 
-  .button-container {
-    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50;
-  }
 }
 
 @utility bg-gradient {
