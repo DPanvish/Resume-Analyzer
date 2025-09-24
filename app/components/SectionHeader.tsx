@@ -2,7 +2,7 @@ import React from 'react';
 
 const SectionHeader = ({eyebrow, title, description, className = ''} : SectionHeaderProps) => {
     return(
-        <div className={`section-header ${className}`}>
+        <div className={`section-header z-10 ${className}`}>
             {/* Eyebrow text appears above the title */}
             {eyebrow && <p className="section-header-eyebrow">{eyebrow}</p>}
 
@@ -18,3 +18,5 @@ const SectionHeader = ({eyebrow, title, description, className = ''} : SectionHe
         </div>
     )
 }
+
+export default SectionHeader;

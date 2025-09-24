@@ -6,6 +6,7 @@ import {Link, useNavigate} from "react-router";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {gsap} from "gsap";
 import resume from "~/routes/resume";
+import SectionHeader from "~/components/SectionHeader";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -84,8 +85,16 @@ export default function Home() {
 	<main ref={scope}>
 	<Navbar/>
 	<section className="main-section">
-	  <div className="page-heading py-16" data-hero>
-		<h1>Track Your Applications & Resume Ratings</h1>
+        <SectionHeader
+            eyebrow="AI-Powered Analysis"
+            title={
+                <h1 className="text-gradient">
+                    Analyze Your Resume in Seconds
+                </h1>
+            }
+            description="Upload your resume to get instant feedback on your skills, experience, and qualifications. Our AI-powered analysis ensures that you receive accurate and actionable insights."
+        />
+	  <div className="page-heading py-5" data-hero>
 		{!loadingResumes && resumes ?.length === 0 ? (
 			<h2>No resumes found. upload your first resume to get feedback.</h2>
 		) : (
