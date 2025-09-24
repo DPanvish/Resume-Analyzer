@@ -65,3 +65,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     size?: "default" | "sm" | "lg" | "icon";
     asChild?: boolean;
 }
+
+interface SectionHeaderProps {
+    eyebrow?: string;
+    title: React.ReactNode;
+    description?: React.ReactNode;
+    className?: string;
+}
