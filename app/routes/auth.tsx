@@ -21,10 +21,10 @@ const Auth = () => {
     }, [auth.isAuthenticated, next]);
 
     return (
-        <main className="bg-[url('/images/bg-auth.svg')] bg-cover min-h-screen flex items-center justify-center">
+        <main className="bg-cover min-h-screen flex items-center justify-center">
             <div className="gradient-border shadow-lg">
-                <section className="flex flex-col gap-8 bg-white rounded-2xl p-10">
-                    <div className="flex, flex-col items-center gap-2 text-center">
+                <section className="flex flex-col gap-8 bg-black rounded-2xl p-10">
+                    <div className="flex, flex-col items-center gap-2 text-center z-10">
                         <h1>Welcome</h1>
                         <h2>Log In to Continue Your Job Journey</h2>
                     </div>
@@ -36,11 +36,11 @@ const Auth = () => {
                         ) : (
                             <>
                                 {auth.isAuthenticated ? (
-                                    <button className="auth-button" onClick={auth.signOut}>
+                                    <button className="auth-button z-10" onClick={auth.signOut}>
                                         <p>Log Out</p>
                                     </button>
                                 ) : (
-                                    <button className="auth-button" onClick={auth.signIn}>
+                                    <button className="auth-button z-10" onClick={auth.signIn}>
                                         <p>Log In</p>
                                     </button>
                                 )}
