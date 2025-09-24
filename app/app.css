@@ -102,6 +102,19 @@ form {
   .page-heading {
     @apply flex flex-col items-center gap-8 max-w-4xl text-center max-sm:gap-4;
   }
+
+  .section-header{
+    @apply flex flex-col items-center gap-4 text-center;
+  }
+
+  .section-header-eyebrow{
+    @apply text-sm font-semibold uppercase tracking-wider text-[var(--color-accent-2)];
+  }
+
+  .section-header-description{
+    @apply max-w-3xl text-lg text-[var(--color-muted)];
+  }
+
   .resumes-section {
     @apply flex flex-wrap max-md:flex-col max-md:gap-4 gap-6 items-start max-md:items-center w-full max-w-[1850px] justify-evenly;
   }
