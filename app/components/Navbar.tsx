@@ -1,9 +1,12 @@
 import React, {useLayoutEffect, useRef} from 'react'
 import {Link} from 'react-router'
 import {gsap} from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
 
 const Navbar = () => {
     const ref = useRef<HTMLDivElement>(null);
+
+    gsap.registerPlugin(ScrollTrigger);
 
     useLayoutEffect(() => {
         if(!ref.current){
@@ -12,10 +15,21 @@ const Navbar = () => {
 
         const ctx = gsap.context(() => {
             gsap.from(ref.current, {
-                y: -12,
+                y: -20,
                 autoAlpha: 0,
                 duration: 0.5,
                 ease: "power2.inOut",
+            });
+
+            ScrollTrigger.create({
+                trigger: ref.current,
+                start: "top top",
+                end: "+=100",
+                scrub: 1,
+                toggleClass: {
+                    targets: ref.current,
+                    className: "navbar-split"
+                },
             })
         }, ref);
 
