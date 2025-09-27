@@ -7,6 +7,7 @@ import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {gsap} from "gsap";
 import resume from "~/routes/resume";
 import SectionHeader from "~/components/SectionHeader";
+import EmptyState from "~/components/EmptyState";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -95,11 +96,12 @@ export default function Home() {
             description="Upload your resume to get instant feedback on your skills, experience, and qualifications. Our AI-powered analysis ensures that you receive accurate and actionable insights."
         />
 	  <div className="page-heading py-5" data-hero>
-		{!loadingResumes && resumes ?.length === 0 ? (
-			<h2>No resumes found. upload your first resume to get feedback.</h2>
-		) : (
-			<h2>Review your submissions and check AI-powered feedback.</h2>
-		)}
+		{/*{!loadingResumes && resumes ?.length === 0 ? (*/}
+		{/*	<h2>No resumes found. upload your first resume to get feedback.</h2>*/}
+		{/*) : (*/}
+		{/*	<h2>Review your submissions and check AI-powered feedback.</h2>*/}
+		{/*)}*/}
+          {!loadingResumes && resumes.length > 0 && <h2>Review your submissions and check AI-powered feedback.</h2>}
 	  </div>
 
 	  {loadingResumes && (
@@ -118,11 +120,23 @@ export default function Home() {
 	  )}
 
 	  {!loadingResumes && resumes.length === 0 && (
-		  <div className="flex flex-col items-center justify-center mt-10 gap-4">
-			<Link to="/upload" className="primary-button w-fit text-xl font-semibold z-10">
-			  Upload Resume
-			</Link>
-		  </div>
+		  // <div className="flex flex-col items-center justify-center mt-10 gap-4">
+			// <Link to="/upload" className="primary-button w-fit text-xl font-semibold z-10">
+			//   Upload Resume
+			// </Link>
+		  // </div>
+          <EmptyState
+              icon={<img src="/images/resume-scan-2.gif" alt="scanning animation" className="w-40 h-40" />}
+              message={<h2>No resumes found. Upload your first resume to get started.</h2>}
+              cta={
+                  <Link
+                      to="/upload"
+                      className="primary-button w-fit text-xl font-semibold z-10"
+                  >
+                      Upload Resume
+                  </Link>
+              }
+          />
 	  )}
 	</section>
   </main>
