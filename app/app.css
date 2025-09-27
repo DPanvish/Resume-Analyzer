@@ -123,6 +123,22 @@ form {
     @apply max-w-3xl text-lg text-[var(--color-muted)];
   }
 
+  .empty-state{
+    @apply flex flex-col items-center justify-center gap-4 text-center p-12 rounded-2xl border-2 border-dashed border-[var(--color-border)] bg-[var(--color-surface-2)] w-full max-w-3xl mt-10;
+  }
+
+  .empty-state-icon{
+    @apply opacity-75 mb-4;
+  }
+
+  .empty-state-message h2{
+    @apply text-xl font-normal text-[var(--color-muted)];
+  }
+
+  .empty-state-cta{
+    @apply mt-4;
+  }
+
   .resumes-section {
     @apply flex flex-wrap max-md:flex-col max-md:gap-4 gap-6 items-start max-md:items-center w-full max-w-[1850px] justify-evenly;
   }
