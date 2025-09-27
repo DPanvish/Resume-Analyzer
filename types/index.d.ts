@@ -72,3 +72,10 @@ interface SectionHeaderProps {
     description?: React.ReactNode;
     className?: string;
 }
+
+interface EmptyStateProps {
+    icon?: React.ReactNode;
+    message: React.ReactNode;
+    cta?: React.ReactNode;
+    className?: string;
+}
