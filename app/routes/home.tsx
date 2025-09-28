@@ -8,6 +8,7 @@ import {gsap} from "gsap";
 import resume from "~/routes/resume";
 import SectionHeader from "~/components/SectionHeader";
 import EmptyState from "~/components/EmptyState";
+import ResumeCardSkeleton from "~/components/ResumeCardSkeleton";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -105,9 +106,13 @@ export default function Home() {
 	  </div>
 
 	  {loadingResumes && (
-		  <div className="flex flex-col items-center justify-center">
-			<img src={"/images/resume-scan-2.gif"} className="w-[200px]" />
-		  </div>
+		  // <div className="flex flex-col items-center justify-center">
+			// <img src={"/images/resume-scan-2.gif"} className="w-[200px]" />
+		  // </div>
+          <div className="resume-section">
+              {/* Display 3 skeleton cards as placeholders */}
+              {[...Array(3)].map((_, i) => <ResumeCardSkeleton key={i}/>)}
+          </div>
 	  )}
 
 	  {/*resumes is coming from index.ts*/}
