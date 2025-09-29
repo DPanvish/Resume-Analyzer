@@ -37,17 +37,6 @@ const Resume = () => {
         }
     }, [isLoading]);
 
-    if(isLoading || !feedback){
-        return(
-            <main>
-                <Navbar />
-                <section className="main-section">
-                    <ResumeDetailsSkeleton />
-                </section>
-            </main>
-        );
-    }
-
     useEffect(() => {
         const loadResume = async() =>{
 
@@ -101,7 +90,28 @@ const Resume = () => {
 
         // calling loadresume method
         loadResume();
+
+        return () => {
+            if(imageUrl){
+                URL.revokeObjectURL(imageUrl);
+            }
+
+            if(resumeUrl){
+                URL.revokeObjectURL(resumeUrl);
+            }
+        }
     }, [id])
+
+    if(isLoading || !feedback){
+        return(
+            <main>
+                <Navbar />
+                <section className="main-section">
+                    <ResumeDetailsSkeleton />
+                </section>
+            </main>
+        );
+    }
 
     return (
         <main className="!pt-0">
@@ -135,25 +145,16 @@ const Resume = () => {
 
                     <section className="feedback-section">
                         <h2 className="text-4xl !text-white font-bold">Resume Review</h2>
+                        <div className="flex flex-col gap-8 animate-in fade-in duration-1000 z-10">
+                            {/* Passing feedback as props */}
+                            <Summary feedback={feedback} />
 
-                        {feedback ? (
+                            {/* Passing ATS score and suggestions as props*/}
+                            <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []} />
 
-                            // If feedback exist the this block will be displayed
-                            <div className="flex flex-col gap-8 animate-in fade-in duration-1000 z-10">
-                                {/* Passing feedback as props*/}
-                                <Summary feedback={feedback}/>
-
-                                {/* Passing ATS score and suggestions as props*/}
-                                <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []}/>
-
-                                {/* Passing feedback as props*/}
-                                <Details feedback={feedback}/>
-                            </div>
-                        ) : (
-
-                            // If feedback does not exist then this block is displayed
-                            <img src="/images/resume-scan-2.gif" className="w-full"/>
-                        )}
+                            {/* Passing feedback as props */}
+                            <Details feedback={feedback} />
+                        </div>
                     </section>
                 </div>
             </div>
