@@ -4,6 +4,8 @@ import {usePuterStore} from "~/lib/puter";
 import Summary from "~/components/Summary";
 import ATS from "~/components/ATS";
 import Details from "~/components/Details";
+import Navbar from "~/components/Navbar";
+import ResumeDetailsSkeleton from "~/components/ResumeDetailsSkeleton";
 
 
 export const meta = () => ([
@@ -29,11 +31,22 @@ const Resume = () => {
     const navigate = useNavigate();
 
     // checking the authentication
-    useEffect(() => {
+    useEffect(()  => {
         if(!isLoading && !auth.isAuthenticated){
             navigate(`/auth?next=/resume/${id}`);
         }
     }, [isLoading]);
+
+    if(isLoading || !feedback){
+        return(
+            <main>
+                <Navbar />
+                <section className="main-section">
+                    <ResumeDetailsSkeleton />
+                </section>
+            </main>
+        );
+    }
 
     useEffect(() => {
         const loadResume = async() =>{
