@@ -3,7 +3,7 @@ import {Link} from "react-router";
 import ScoreCircle from "~/components/ScoreCircle";
 import {usePuterStore} from "~/lib/puter";
 
-const ResumeCard = ({resume :{id, companyName, jobTitle, feedback, imagePath}} : {resume: Resume}) => {
+const ResumeCard = ({resume :{id, companyName, jobTitle, feedback, imagePath}, onClick, ...props} : {resume: Resume, onClick?: (e: React.MouseEvent) => void, [key: string]: any}) => {
     const {fs} = usePuterStore();
     const [resumeUrl, setResumeUrl] = useState('');
 
@@ -20,11 +20,20 @@ const ResumeCard = ({resume :{id, companyName, jobTitle, feedback, imagePath}} :
             setResumeUrl(url);
         }
 
-        loadResume();
+        if(imagePath){
+            loadResume();
+        }
+
+        return () => {
+            if(resumeUrl){
+                URL.revokeObjectURL(resumeUrl);
+            }
+        }
     }, [imagePath]);
 
     return (
-        <Link to={`/resume/${id}`} className="resume-card animate-in fade-in duration-1000">
+        // <Link to={`/resume/${id}`} className="resume-card animate-in fade-in duration-1000">
+        <div onClick={onClick} className="resume-card animate-in fade-in duration-1000" {...props}>
             <div className="resume-card-header">
                 <div className="flex flex-col gap-2">
                     {/*If company name exists*/}
@@ -56,7 +65,8 @@ const ResumeCard = ({resume :{id, companyName, jobTitle, feedback, imagePath}} :
                     />
                 </div>
             </div>)}
-        </Link>
+        </div>
+        //</Link>
     )
 }
 export default ResumeCard
