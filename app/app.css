@@ -190,10 +190,30 @@ form {
     @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
   }
 
-  .skeleton{
+  .skeleton {
     @apply animate-pulse bg-[var(--color-border)] rounded-md;
   }
 
+  .modal-backdrop {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-300;
+  }
+
+  .modal-content {
+    @apply relative bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] shadow-2xl p-8 w-full max-w-2xl animate-in fade-in-0 duration-300;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .modal-close-button {
+    @apply absolute top-4 right-4 text-2xl text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors;
+  }
+
+  .resume-quick-view {
+    @apply flex flex-col gap-4;
+  }
+
+  .resume-quick-view h2{
+    @apply text-2xl font-bold text-[var(--color-heading)];
+  }
 }
 
 @utility bg-gradient {
