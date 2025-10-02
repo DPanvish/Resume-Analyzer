@@ -9,6 +9,7 @@ import resume from "~/routes/resume";
 import SectionHeader from "~/components/SectionHeader";
 import EmptyState from "~/components/EmptyState";
 import ResumeCardSkeleton from "~/components/ResumeCardSkeleton";
+import Modal from "~/components/Modal";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -23,6 +24,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
+  const [selectedResume, setSelectedResume] = useState<Resume | null>(null);
 
   const scope = useRef<HTMLDivElement>(null);
 
@@ -119,7 +121,13 @@ export default function Home() {
 	  {!loadingResumes && resumes.length > 0 && (
 		  <div className="resumes-section">
 			{resumes.map((resume) => (
-				<ResumeCard key={resume.id} resume={resume} data-card/>
+				// <ResumeCard key={resume.id} resume={resume} data-card/>
+                <ResumeCard
+                    key={resume.id}
+                    resume={resume}
+                    onClick={() => setSelectedResume(resume)}
+                    data-card
+                />
 			))}
 		  </div>
 	  )}
@@ -144,6 +152,26 @@ export default function Home() {
           />
 	  )}
 	</section>
+    <Modal isOpen={!!selectedResume} onClose={() => setSelectedResume(null)}>
+        {selectedResume && (
+            <div className="resume-quick-view">
+                <h2>{selectedResume.jobTitle || "Resume Quick View"}</h2>
+                <p className="text-[var(--color-muted)]">
+                    {selectedResume.companyName ? `For: ${selectedResume.companyName}` : "General Resume"}
+                </p>
+
+                <div className="mt-4 flex gap-4">
+                    <Link
+                        to={`/resume/${selectedResume.id}`}
+                        className="primary-button w-fit"
+                        onClick={() => setSelectedResume(null)}
+                    >
+                        View Full Analysis
+                    </Link>
+                </div>
+            </div>
+        )}
+    </Modal>
   </main>
   );
 }
