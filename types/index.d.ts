@@ -79,3 +79,10 @@ interface EmptyStateProps {
     cta?: React.ReactNode;
     className?: string;
 }
+
+interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
+    className?: string;
+}
