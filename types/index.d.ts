@@ -86,3 +86,15 @@ interface ModalProps {
     children: React.ReactNode;
     className?: string;
 }
+
+type ToastType = "success" | "error" | "info";
+
+interface ToastMessage {
+    id: number,
+    message: string,
+    type: ToastType,
+}
+
+interface ToastContextType {
+    addToast: (message: string, type: ToastType) => void;
+}
