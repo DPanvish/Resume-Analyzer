@@ -1,4 +1,6 @@
-import React, {createContext, useCallback, useState} from 'react'
+import React, {createContext, useCallback, useContext, useState} from 'react'
+import {createPortal} from "react-dom";
+import Toast from "~/components/Toast";
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
@@ -15,11 +17,33 @@ export const ToastProvider = ({children} : {children: React.ReactNode}) => {
     const removerToast = useCallback((id: number) => {
         setToasts(prevToasts => prevToasts.filter(toast => toast.id !== id));
     }, []);
+
+    return (
+        <ToastContext.Provider value={{addToast}}>
+            {children}
+            {createPortal(
+                <div className="toast-container">
+                    {toasts.map((toast) => (
+                        <Toast key={toast.id} {...toast} onDismiss={() => removerToast(toast.id)} />
+                    ))}
+                </div>,
+                document.body
+            )}
+        </ToastContext.Provider>
+    )
 }
 
 const UseToast = () => {
-    return (
-        <div>UseToast</div>
-    )
+    const context = useContext(ToastContext);
+
+    if(!context){
+        throw new Error("useToast must be used within a ToastProvider");
+    }
+
+    return {
+        success: (message: string) => context.addToast(message, "success"),
+        error: (message: string) => context.addToast(message, "error"),
+        info: (message: string) => context.addToast(message, "info"),
+    };
 }
 export default UseToast
