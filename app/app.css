@@ -211,8 +211,29 @@ form {
     @apply flex flex-col gap-4;
   }
 
-  .resume-quick-view h2{
+  .resume-quick-view h2 {
     @apply text-2xl font-bold text-[var(--color-heading)];
+  }
+
+  .toast-container {
+    @apply fixed top-0, right-0 z-[100] p-4 w-full max-w-sm;
+  }
+
+  .toast {
+    @apply flwx items-center p-4 mb-4 w-full rounded-lg shadow-lg text-white animate-in slide-in-from-top-5 fade-in-0 durstion-300;
+    backdrop-filter: blur(10px);
+  }
+
+  .toast-success {
+    @apply bg-green-500/30 border border-green-400/50;
+  }
+
+  .toast-error {
+    @apply bg-red-500/30 border border-red-400/50;
+  }
+
+  .toast-info {
+    @apply bg-blue-500/30 border border-blue-400/50;
   }
 }
 
