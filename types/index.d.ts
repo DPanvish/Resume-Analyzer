@@ -98,3 +98,7 @@ interface ToastMessage {
 interface ToastContextType {
     addToast: (message: string, type: ToastType) => void;
 }
+
+interface ToastProps extends ToastMessage{
+    onDismiss: () => void;
+}

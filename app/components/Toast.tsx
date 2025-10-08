@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Toast = () => {
+const Toast = ({message, type, onDismiss}: ToastProps) => {
     return (
         <div>Toast</div>
     )
