@@ -235,6 +235,18 @@ form {
   .toast-info {
     @apply bg-blue-500/30 border border-blue-400/50;
   }
+
+  .toast-icon {
+    @apply inline-flex items-center justify-center flex-shrink-0 w-8 h-8;
+  }
+
+  .toast-message {
+    @apply ml-3 text-sm font-normal;
+  }
+
+  .toast-close-btn{
+    @apply ml-auto -mx-1.5 -my-1.5 p-1.5 inline-flex h-8 w-8 rounded-lg hover:bg-white/20 transition-colors;
+  }
 }
 
 @utility bg-gradient {
