@@ -6,6 +6,7 @@ import {useNavigate} from "react-router";
 import {convertPdfToImage} from "~/lib/pdf2img";
 import {generateUUID} from "~/lib/utils";
 import {prepareInstructions} from "../../constants";
+import useToast from "~/services/useToast";
 
 export const meta = () => ([
     {title: 'Resumind | Upload'},
@@ -16,6 +17,8 @@ const Upload = () => {
 
     // Destructuring the puterstore (fs -> file storage, ai -> artificial intelligence, kv -> key value)
     const {auth, isLoading, fs, ai, kv} = usePuterStore();
+
+    const toast = useToast;
 
     const navigate = useNavigate();
 
@@ -36,39 +39,48 @@ const Upload = () => {
     const handleAnalyze = async ({ companyName, jobTitle, jobDescription, file }: { companyName: string, jobTitle: string, jobDescription: string, file: File  }) => {
         setIsProcessing(true);
 
-        setStatusText('Uploading the file...');
+        // setStatusText('Uploading the file...');
+        toast.info("Uploading the file...");
 
         // Uploading the file to the puter file storage
         const uploadedFile = await fs.upload([file]);
 
         // Checking whether uploaded file exists or not
         if(!uploadedFile){
-            return setStatusText('Error: Failed to upload file');
+            // return setStatusText('Error: Failed to upload file');
+            toast.error("Error: Failed to upload file");
+            return setIsProcessing(false);
         }
 
         // Converting the pdf to image
-
-        setStatusText('Converting to image...');
+        // setStatusText('Converting to image...');
+        toast.info("Converting to image...");
 
         // convertPdfToImage login is implemented in pdf2img.ts file
         const imageFile = await convertPdfToImage(file);
 
         // checking whether image exists or not
         if(!imageFile.file){
-            return setStatusText('Error: Failed to convert PDF to image');
+            // return setStatusText('Error: Failed to convert PDF to image');
+            toast.error("Error: Failed to convert PDF to image");
+            return setIsProcessing(false);
         }
 
-        setStatusText('Uploading the image...');
+        // setStatusText('Uploading the image...');
+        toast.info("Uploading the image...");
 
         // Uploading the image to the puter file storage
         const uploadedImage = await fs.upload([imageFile.file]);
 
         // checking whether uploadingImage exists or not
         if(!uploadedImage){
-            return setStatusText('Error: Failed to upload image');
+            // return setStatusText('Error: Failed to upload image');
+            toast.error("Error: Failed to upload image");
+            return setIsProcessing(false);
         }
 
-        setStatusText('Preparing data...');
+        // setStatusText('Preparing data...');
+        toast.info("Preparing data for analysis...");
 
         // generate unique id, the generateUUID function is in utils.tsx
         const uuid = generateUUID();
@@ -88,7 +100,8 @@ const Upload = () => {
         // add the uuid and data object (converted to JSON) to the key value storage
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
-        setStatusText('Analyzing...');
+        // setStatusText('Analyzing...');
+        toast.info("AI is analysing your resume...")
 
         // We are generate feedback by ai
         // prepareInstructions funtion is in index.ts (Only instructions and AIresponse is stored in it)
@@ -98,7 +111,11 @@ const Upload = () => {
         )
 
         // if we don't get any feedback
-        if (!feedback) return setStatusText('Error: Failed to analyze resume');
+        if (!feedback){
+            // return setStatusText('Error: Failed to analyze resume');
+            toast.error("Error: Failed to analyze resume");
+            return setIsProcessing(false);
+        }
 
         // extract the feedback
         // if feedback is string ->  feedback.message.content
@@ -113,7 +130,8 @@ const Upload = () => {
         // update the data object as we added feedback
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
-        setStatusText('Analysis complete, redirecting...');
+        // setStatusText('Analysis complete, redirecting...');
+        toast.success("Analysis complete, redirecting...")
 
         console.log(data);
 
