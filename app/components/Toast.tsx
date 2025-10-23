@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 const ICONS = {
     success: (
@@ -23,7 +23,20 @@ const ICONS = {
     )
 }
 
+interface ToastProps extends ToastMessage{
+    onDismiss: () => void;
+}
+
 const Toast = ({message, type, onDismiss}: ToastProps) => {
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            onDismiss();
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, [onDismiss]);
+
     return (
         <div className={`toast toast-${type}`} role="alert">
             <div className="toast-icon">{ICONS[type]}</div>

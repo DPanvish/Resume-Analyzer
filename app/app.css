@@ -216,11 +216,11 @@ form {
   }
 
   .toast-container {
-    @apply fixed top-0, right-0 z-[100] p-4 w-full max-w-sm;
+    @apply fixed top-0 right-0 z-[100] p-4 w-full max-w-sm;
   }
 
   .toast {
-    @apply flwx items-center p-4 mb-4 w-full rounded-lg shadow-lg text-white animate-in slide-in-from-top-5 fade-in-0 durstion-300;
+    @apply flex items-center p-4 mb-4 w-full rounded-lg shadow-lg text-white animate-in slide-in-from-top-5 fade-in-0 duration-300;
     backdrop-filter: blur(10px);
   }
 
