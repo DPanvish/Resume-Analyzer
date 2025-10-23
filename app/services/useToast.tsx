@@ -2,6 +2,9 @@ import React, {createContext, useCallback, useContext, useState} from 'react'
 import {createPortal} from "react-dom";
 import Toast from "~/components/Toast";
 
+type ToastContextType = {
+    addToast: (message: string, type: ToastType) => void;
+}
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export const ToastProvider = ({children} : {children: React.ReactNode}) => {
@@ -14,7 +17,7 @@ export const ToastProvider = ({children} : {children: React.ReactNode}) => {
         setToasts(prevToasts => [...prevToasts, {id, message, type}]);
     }, []);
 
-    const removerToast = useCallback((id: number) => {
+    const removeToast = useCallback((id: number) => {
         setToasts(prevToasts => prevToasts.filter(toast => toast.id !== id));
     }, []);
 
@@ -24,7 +27,7 @@ export const ToastProvider = ({children} : {children: React.ReactNode}) => {
             {createPortal(
                 <div className="toast-container">
                     {toasts.map((toast) => (
-                        <Toast key={toast.id} {...toast} onDismiss={() => removerToast(toast.id)} />
+                        <Toast key={toast.id} {...toast} onDismiss={() => removeToast(toast.id)} />
                     ))}
                 </div>,
                 document.body

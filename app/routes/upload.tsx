@@ -18,7 +18,7 @@ const Upload = () => {
     // Destructuring the puterstore (fs -> file storage, ai -> artificial intelligence, kv -> key value)
     const {auth, isLoading, fs, ai, kv} = usePuterStore();
 
-    const toast = useToast;
+    const toast = useToast();
 
     const navigate = useNavigate();
 
